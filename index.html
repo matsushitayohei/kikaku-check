@@ -42,25 +42,25 @@
     </div>
     <div class="container">
         <div class="update-info">
-            <span>📅 最終更新: 2026-08-04 | データ期間: 2025-05 〜 2026-08 | ソース: Confluence + Slack</span>
+            <span>📅 最終更新: 2026-08-04 | データ期間: 2024-04 〜 2026-08 | ソース: Jira HDC + Confluence + Slack</span>
         </div>
 
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="number">200+</div>
-                <div class="label">総コメント数</div>
+                <div class="number">360+</div>
+                <div class="label">総コメント数（31期+32期）</div>
             </div>
             <div class="stat-card">
-                <div class="number">30+</div>
+                <div class="number">86+</div>
                 <div class="label">コメント付きページ数</div>
             </div>
             <div class="stat-card">
-                <div class="number">90+</div>
-                <div class="label">企画チェック依頼数</div>
+                <div class="number">230+</div>
+                <div class="label">企画チェック依頼数（Jira）</div>
             </div>
             <div class="stat-card">
-                <div class="number">8</div>
-                <div class="label">指摘カテゴリ数</div>
+                <div class="number">328</div>
+                <div class="label">31期+32期 PJ総数</div>
             </div>
         </div>
 
@@ -77,9 +77,26 @@
 
         <div class="chart-grid">
             <div class="chart-card full-width">
-                <h3>📈 月別 企画チェック依頼数の推移</h3>
+                <h3>📈 月別 企画チェック依頼数の推移（Jira HDC 賃貸関連）</h3>
+                <p style="font-size:0.75rem; color:#888; margin-bottom:0.5rem;">※2024/04〜2025/04: Jira件数 | 2025/05〜: Slack #team-pp1u-企画相談 投稿数</p>
                 <canvas id="monthlyTrend"></canvas>
             </div>
+        </div>
+
+        <div class="table-card">
+            <h3>📊 期別サマリー（31期 vs 32期）</h3>
+            <table>
+                <thead>
+                    <tr><th>項目</th><th>31期（2024/04〜2025/09）</th><th>32期（2025/10〜）</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Confluenceプロジェクトページ</td><td>164件</td><td>163件（推定）</td></tr>
+                    <tr><td>Jira企画チェック依頼（賃貸）</td><td>137件</td><td>90+件</td></tr>
+                    <tr><td>Confluenceインラインコメント</td><td><span class="badge badge-high">208件（120PJ走査/164PJ中）</span></td><td><span class="badge badge-high">150件+</span></td></tr>
+                    <tr><td>企画相談Slackチャンネル</td><td>（存在しない）</td><td>#team-pp1u-企画相談</td></tr>
+                    <tr><td>レビュー形式</td><td>Confluenceインライン + PJチャンネル</td><td>Confluence + Slack集約</td></tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="table-card">
@@ -175,14 +192,14 @@
         new Chart(document.getElementById('monthlyTrend'), {
             type: 'line',
             data: {
-                labels: ['2025/05','2025/06','2025/07','2025/08','2025/09','2025/10','2025/11','2025/12','2026/01','2026/02','2026/03','2026/04','2026/05','2026/06','2026/07','2026/08'],
+                labels: ['2024/04','2024/05','2024/06','2024/07','2024/08','2024/09','2024/10','2024/11','2024/12','2025/01','2025/02','2025/03','2025/04','2025/05','2025/06','2025/07','2025/08','2025/09','2025/10','2025/11','2025/12','2026/01','2026/02','2026/03','2026/04','2026/05','2026/06','2026/07','2026/08'],
                 datasets: [{
-                    label: '企画チェック依頼数',
-                    data: [2,2,3,5,4,7,7,7,7,5,6,5,8,10,12,4],
+                    label: '企画チェック依頼数（Jira HDC 賃貸）',
+                    data: [9,7,12,10,13,2,11,11,11,10,11,14,16,8,10,12,7,7,7,7,7,7,5,6,5,8,10,12,4],
                     borderColor: '#667eea', backgroundColor: 'rgba(102,126,234,0.1)', fill: true, tension: 0.3
                 }]
             },
-            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+            options: { responsive: true, plugins: { legend: { display: true } }, scales: { y: { beginAtZero: true } } }
         });
 
         new Chart(document.getElementById('typeBar'), {
