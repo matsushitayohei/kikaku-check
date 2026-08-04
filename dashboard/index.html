@@ -114,6 +114,22 @@
             </div>
         </div>
 
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h3>🚀 lifull-mcps統合後の見込み</h3>
+                <canvas id="automationFuture"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>📋 半自動化→自動化 昇格対象</h3>
+                <div style="font-size:0.85rem; line-height:1.8; padding:0.5rem;">
+                    <p><strong>db-explorer連携</strong>: エッジケース自動列挙、UI状態パターン網羅</p>
+                    <p><strong>bigquery連携</strong>: Other metrics差分検出、イベント名衝突チェック</p>
+                    <p><strong>frontend-recipes連携</strong>: 既存コンポーネントパターン自動提示</p>
+                    <p><strong>confluence連携</strong>: ABテストパターン記述の構造解析</p>
+                </div>
+            </div>
+        </div>
+
         <div class="table-card">
             <h3>👁️ レビュアー別 指摘傾向</h3>
             <table>
@@ -187,7 +203,16 @@
                 labels: ['自動化可能(35%)','半自動化(40%)','人の判断必須(25%)'],
                 datasets: [{ data: [35,40,25], backgroundColor: ['#43e97b','#4facfe','#f5576c'] }]
             },
-            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+            options: { responsive: true, plugins: { legend: { position: 'bottom' }, title: { display: true, text: '現状', font: { size: 12 } } } }
+        });
+
+        new Chart(document.getElementById('automationFuture'), {
+            type: 'doughnut',
+            data: {
+                labels: ['自動化可能(50%)','半自動化(25%)','人の判断必須(25%)'],
+                datasets: [{ data: [50,25,25], backgroundColor: ['#43e97b','#4facfe','#f5576c'] }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'lifull-mcps統合後', font: { size: 12 } } } }
         });
     </script>
 </body>
