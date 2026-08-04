@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企画チェック傾向ダッシュボード</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; background: #f5f7fa; color: #333; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
+        .header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .header p { opacity: 0.9; font-size: 0.9rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+        .stat-card .number { font-size: 2.5rem; font-weight: 700; color: #667eea; }
+        .stat-card .label { font-size: 0.85rem; color: #666; margin-top: 0.3rem; }
+        .chart-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .chart-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .chart-card h3 { font-size: 1rem; margin-bottom: 1rem; color: #444; }
+        .full-width { grid-column: 1 / -1; }
+        .table-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
+        .table-card h3 { font-size: 1rem; margin-bottom: 1rem; color: #444; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; font-weight: 600; color: #555; }
+        tr:hover { background: #f8f9ff; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; }
+        .badge-high { background: #fee2e2; color: #dc2626; }
+        .badge-mid { background: #fef3c7; color: #d97706; }
+        .badge-low { background: #d1fae5; color: #059669; }
+        .footer { text-align: center; padding: 2rem; color: #999; font-size: 0.8rem; }
+        .update-info { background: #eef2ff; border-radius: 8px; padding: 1rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; }
+        .update-info span { font-size: 0.85rem; color: #4f46e5; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>企画チェック傾向ダッシュボード</h1>
+        <p>賃貸ものづくりチーム - 施策リリース前チェックの指摘パターン分析</p>
+    </div>
+    <div class="container">
+        <div class="update-info">
+            <span>📅 最終更新: 2026-08-04 | データ期間: 2025-07 〜 2026-08 | ソース: Confluence + Slack</span>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">150+</div>
+                <div class="label">総コメント数</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">22</div>
+                <div class="label">コメント付きページ数</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">80</div>
+                <div class="label">企画チェック依頼数</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">8</div>
+                <div class="label">指摘カテゴリ数</div>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h3>📊 指摘カテゴリ別 件数割合</h3>
+                <canvas id="categoryPie"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>👤 レビュアー別 指摘件数</h3>
+                <canvas id="reviewerBar"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card full-width">
+                <h3>📈 月別 企画チェック依頼数の推移</h3>
+                <canvas id="monthlyTrend"></canvas>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <h3>🔥 頻出指摘 TOP10</h3>
+            <table>
+                <thead>
+                    <tr><th>#</th><th>指摘内容</th><th>カテゴリ</th><th>件数</th><th>自動化可否</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>データ引用元URLの記載漏れ</td><td>ドキュメント品質</td><td>8</td><td><span class="badge badge-high">自動化可</span></td></tr>
+                    <tr><td>2</td><td>ABテスト 1パターンに複数変更</td><td>ABテスト設計</td><td>7</td><td><span class="badge badge-mid">半自動化</span></td></tr>
+                    <tr><td>3</td><td>エッジケース未考慮（画像なし/0件等）</td><td>仕様の考慮漏れ</td><td>7</td><td><span class="badge badge-mid">半自動化</span></td></tr>
+                    <tr><td>4</td><td>tealiumイベント A/B対称性不足</td><td>データ計測設計</td><td>6</td><td><span class="badge badge-high">自動化可</span></td></tr>
+                    <tr><td>5</td><td>Other metricsの追加提案</td><td>データ計測設計</td><td>6</td><td><span class="badge badge-mid">半自動化</span></td></tr>
+                    <tr><td>6</td><td>表示条件の曖昧さ（初回/N回目等）</td><td>記載の正確性</td><td>5</td><td><span class="badge badge-mid">半自動化</span></td></tr>
+                    <tr><td>7</td><td>ABテスト計測期間・対象UU試算不足</td><td>ABテスト設計</td><td>5</td><td><span class="badge badge-mid">半自動化</span></td></tr>
+                    <tr><td>8</td><td>既存機能との連動漏れ（ヘッダー等）</td><td>仕様の考慮漏れ</td><td>5</td><td><span class="badge badge-low">人の判断</span></td></tr>
+                    <tr><td>9</td><td>営業/情報審査チェックの要否</td><td>事業観点</td><td>5</td><td><span class="badge badge-high">自動化可</span></td></tr>
+                    <tr><td>10</td><td>JIRAチケットURL未記載</td><td>ドキュメント品質</td><td>4</td><td><span class="badge badge-high">自動化可</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h3>🎯 施策タイプ別 指摘発生率</h3>
+                <canvas id="typeBar"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>✅ 自動化可能性の内訳</h3>
+                <canvas id="automationPie"></canvas>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <h3>👁️ レビュアー別 指摘傾向</h3>
+            <table>
+                <thead>
+                    <tr><th>レビュアー</th><th>主な指摘カテゴリ</th><th>特徴</th><th>件数</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>齋藤</strong></td><td>データ計測、仕様の具体性、エッジケース</td><td>技術的正確性。具体的なURL例・データ例を添える</td><td>70+</td></tr>
+                    <tr><td><strong>浅利</strong></td><td>ABテスト設計、事業方針、連動漏れ</td><td>全体感を俯瞰。「忘れがちな観点」をチェックリスト的に</td><td>40+</td></tr>
+                    <tr><td><strong>五島</strong></td><td>営業観点、情報審査、Guardrail</td><td>ビジネスリスクの見落とし補完</td><td>20+</td></tr>
+                    <tr><td><strong>原田</strong></td><td>文言・表記・データ引用元</td><td>読みやすさ・記載ルールの統一性</td><td>10+</td></tr>
+                    <tr><td><strong>矢野</strong></td><td>表現の妥当性、営業との整合性</td><td>訴求文言・商品知識の正確性</td><td>10+</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>kikaku-check | GitHub Pages | 週次自動更新</p>
+    </div>
+
+    <script>
+        const colors = ['#667eea','#764ba2','#f093fb','#f5576c','#4facfe','#43e97b','#fa709a','#fee140'];
+
+        new Chart(document.getElementById('categoryPie'), {
+            type: 'doughnut',
+            data: {
+                labels: ['記載の正確性(22%)','データ計測設計(17%)','仕様の考慮漏れ(16%)','ドキュメント品質(13%)','ABテスト設計(10%)','事業観点(9%)','提案/アドバイス(9%)','パフォーマンス(4%)'],
+                datasets: [{ data: [25,20,18,15,12,10,10,5], backgroundColor: colors }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'right', labels: { font: { size: 11 } } } } }
+        });
+
+        new Chart(document.getElementById('reviewerBar'), {
+            type: 'bar',
+            data: {
+                labels: ['齋藤','浅利','五島','原田','矢野','松下','松尾'],
+                datasets: [{ label: '指摘件数', data: [72,42,22,12,10,8,5], backgroundColor: '#667eea' }]
+            },
+            options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: false } } }
+        });
+
+        new Chart(document.getElementById('monthlyTrend'), {
+            type: 'line',
+            data: {
+                labels: ['2025/10','2025/11','2025/12','2026/01','2026/02','2026/03','2026/04','2026/05','2026/06','2026/07','2026/08'],
+                datasets: [{
+                    label: '企画チェック依頼数',
+                    data: [6,8,7,7,5,8,6,8,9,10,4],
+                    borderColor: '#667eea', backgroundColor: 'rgba(102,126,234,0.1)', fill: true, tension: 0.3
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+        });
+
+        new Chart(document.getElementById('typeBar'), {
+            type: 'bar',
+            data: {
+                labels: ['CRO(UI変更)','SEO','売上/CRM','B2B','パーソナライズ'],
+                datasets: [
+                    { label: '指摘あり', data: [18,4,6,3,2], backgroundColor: '#f5576c' },
+                    { label: '指摘なし(FIX)', data: [22,12,8,5,3], backgroundColor: '#43e97b' }
+                ]
+            },
+            options: { responsive: true, scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } } }
+        });
+
+        new Chart(document.getElementById('automationPie'), {
+            type: 'doughnut',
+            data: {
+                labels: ['自動化可能(35%)','半自動化(40%)','人の判断必須(25%)'],
+                datasets: [{ data: [35,40,25], backgroundColor: ['#43e97b','#4facfe','#f5576c'] }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+    </script>
+</body>
+</html>
