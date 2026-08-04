@@ -176,8 +176,8 @@
         new Chart(document.getElementById('categoryPie'), {
             type: 'doughnut',
             data: {
-                labels: ['記載の正確性(22%)','データ計測設計(17%)','仕様の考慮漏れ(16%)','ドキュメント品質(13%)','ABテスト設計(10%)','事業観点(9%)','提案/アドバイス(9%)','パフォーマンス(4%)'],
-                datasets: [{ data: [25,20,18,15,12,10,10,5], backgroundColor: colors }]
+                labels: ['効果測定・指標設計(23%)','記載の正確性・表現(15%)','対象範囲・スコープ(15%)','データ/根拠の補足(11%)','ABテスト設計(10%)','リスク・懸念(10%)','参照情報不足(8%)','営業/事業観点(5%)','その他(3%)'],
+                datasets: [{ data: [23,15,15,11,10,10,8,5,3], backgroundColor: colors.concat(['#a78bfa']) }]
             },
             options: { responsive: true, plugins: { legend: { position: 'right', labels: { font: { size: 11 } } } } }
         });
@@ -222,10 +222,10 @@
         new Chart(document.getElementById('automationPie'), {
             type: 'doughnut',
             data: {
-                labels: ['自動化可能(35%)','半自動化(40%)','人の判断必須(25%)'],
-                datasets: [{ data: [35,40,25], backgroundColor: ['#43e97b','#4facfe','#f5576c'] }]
+                labels: ['自動化可能(32%)','半自動化(43%)','人の判断必須(25%)'],
+                datasets: [{ data: [32,43,25], backgroundColor: ['#43e97b','#4facfe','#f5576c'] }]
             },
-            options: { responsive: true, plugins: { legend: { position: 'bottom' }, title: { display: true, text: '現状', font: { size: 12 } } } }
+            options: { responsive: true, plugins: { legend: { position: 'bottom' }, title: { display: true, text: '現状（31期+32期合算）', font: { size: 12 } } } }
         });
 
         new Chart(document.getElementById('automationFuture'), {
