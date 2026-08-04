@@ -100,22 +100,22 @@
         </div>
 
         <div class="table-card">
-            <h3>🔥 頻出指摘 TOP10</h3>
+            <h3>🔥 頻出指摘 TOP10（31期+32期 合算）</h3>
             <table>
                 <thead>
                     <tr><th>#</th><th>指摘内容</th><th>カテゴリ</th><th>件数</th><th>自動化可否</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>1</td><td>データ引用元URLの記載漏れ</td><td>ドキュメント品質</td><td>8</td><td><span class="badge badge-high">自動化可</span></td></tr>
-                    <tr><td>2</td><td>ABテスト 1パターンに複数変更</td><td>ABテスト設計</td><td>7</td><td><span class="badge badge-mid">半自動化</span></td></tr>
-                    <tr><td>3</td><td>エッジケース未考慮（画像なし/0件等）</td><td>仕様の考慮漏れ</td><td>7</td><td><span class="badge badge-mid">半自動化</span></td></tr>
-                    <tr><td>4</td><td>tealiumイベント A/B対称性不足</td><td>データ計測設計</td><td>6</td><td><span class="badge badge-high">自動化可</span></td></tr>
-                    <tr><td>5</td><td>Other metricsの追加提案</td><td>データ計測設計</td><td>6</td><td><span class="badge badge-mid">半自動化</span></td></tr>
-                    <tr><td>6</td><td>表示条件の曖昧さ（初回/N回目等）</td><td>記載の正確性</td><td>5</td><td><span class="badge badge-mid">半自動化</span></td></tr>
-                    <tr><td>7</td><td>ABテスト計測期間・対象UU試算不足</td><td>ABテスト設計</td><td>5</td><td><span class="badge badge-mid">半自動化</span></td></tr>
-                    <tr><td>8</td><td>既存機能との連動漏れ（ヘッダー等）</td><td>仕様の考慮漏れ</td><td>5</td><td><span class="badge badge-low">人の判断</span></td></tr>
-                    <tr><td>9</td><td>営業/情報審査チェックの要否</td><td>事業観点</td><td>5</td><td><span class="badge badge-high">自動化可</span></td></tr>
-                    <tr><td>10</td><td>JIRAチケットURL未記載</td><td>ドキュメント品質</td><td>4</td><td><span class="badge badge-high">自動化可</span></td></tr>
+                    <tr><td>1</td><td>Other metrics / Guardrail metricsの追加提案</td><td>効果測定・指標設計</td><td>35+</td><td><span class="badge badge-mid">半自動化</span></td></tr>
+                    <tr><td>2</td><td>対象範囲・スコープの確認（デバイス/居住用/ページ種別）</td><td>対象範囲</td><td>25+</td><td><span class="badge badge-mid">半自動化</span></td></tr>
+                    <tr><td>3</td><td>データ引用元URL / 過去施策リンクの記載漏れ</td><td>参照情報不足</td><td>20+</td><td><span class="badge badge-high">自動化可</span></td></tr>
+                    <tr><td>4</td><td>表現の曖昧さ・typo・用語の不正確さ</td><td>記載の正確性</td><td>20+</td><td><span class="badge badge-mid">半自動化</span></td></tr>
+                    <tr><td>5</td><td>ABテスト 1パターンに複数変更 / サンプル数試算不足</td><td>ABテスト設計</td><td>18+</td><td><span class="badge badge-mid">半自動化</span></td></tr>
+                    <tr><td>6</td><td>tealiumイベント A/B対称性不足 / show_content漏れ</td><td>データ計測設計</td><td>15+</td><td><span class="badge badge-high">自動化可</span></td></tr>
+                    <tr><td>7</td><td>営業/情報審査/ステークホルダー共有の要否</td><td>営業/事業観点</td><td>15+</td><td><span class="badge badge-high">自動化可</span></td></tr>
+                    <tr><td>8</td><td>リスク・懸念の洗い出し不足（SEO副作用/負荷/カニバリ）</td><td>リスク</td><td>15+</td><td><span class="badge badge-low">人の判断</span></td></tr>
+                    <tr><td>9</td><td>JIRAチケットURL / 企画チェックパス未記載</td><td>ドキュメント品質</td><td>12+</td><td><span class="badge badge-high">自動化可</span></td></tr>
+                    <tr><td>10</td><td>エッジケース未考慮（0件/画像なし/非居住用）</td><td>仕様の考慮漏れ</td><td>12+</td><td><span class="badge badge-mid">半自動化</span></td></tr>
                 </tbody>
             </table>
         </div>
@@ -139,10 +139,11 @@
             <div class="chart-card">
                 <h3>📋 半自動化→自動化 昇格対象</h3>
                 <div style="font-size:0.85rem; line-height:1.8; padding:0.5rem;">
-                    <p><strong>db-explorer連携</strong>: エッジケース自動列挙、UI状態パターン網羅</p>
-                    <p><strong>bigquery連携</strong>: Other metrics差分検出、イベント名衝突チェック</p>
-                    <p><strong>frontend-recipes連携</strong>: 既存コンポーネントパターン自動提示</p>
-                    <p><strong>confluence連携</strong>: ABテストパターン記述の構造解析</p>
+                    <p><strong>db-explorer連携</strong>: エッジケース自動列挙、UI状態パターン網羅、非居住用判定</p>
+                    <p><strong>bigquery連携</strong>: Other metrics差分検出、イベント名衝突チェック、サンプル数試算</p>
+                    <p><strong>frontend-recipes連携</strong>: 既存コンポーネントパターン自動提示、対象ページ種別判定</p>
+                    <p><strong>confluence連携</strong>: ABテストパターン記述の構造解析、過去施策リンク自動補完</p>
+                    <p><strong>jira連携</strong>: 企画チェックパス/JIRAチケットURL自動挿入、営業チェック要否判定</p>
                 </div>
             </div>
         </div>
@@ -210,10 +211,10 @@
         new Chart(document.getElementById('typeBar'), {
             type: 'bar',
             data: {
-                labels: ['CRO(UI変更)','SEO','売上/CRM','B2B','パーソナライズ'],
+                labels: ['CRO(UI変更)','SEO','売上/CRM','B2B','パーソナライズ','短期利益'],
                 datasets: [
-                    { label: '指摘あり', data: [18,4,6,3,2], backgroundColor: '#f5576c' },
-                    { label: '指摘なし(FIX)', data: [22,12,8,5,3], backgroundColor: '#43e97b' }
+                    { label: '指摘あり', data: [35,18,10,5,4,6], backgroundColor: '#f5576c' },
+                    { label: '指摘なし(FIX)', data: [40,20,12,8,5,7], backgroundColor: '#43e97b' }
                 ]
             },
             options: { responsive: true, scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } } }
@@ -231,10 +232,10 @@
         new Chart(document.getElementById('automationFuture'), {
             type: 'doughnut',
             data: {
-                labels: ['自動化可能(50%)','半自動化(25%)','人の判断必須(25%)'],
-                datasets: [{ data: [50,25,25], backgroundColor: ['#43e97b','#4facfe','#f5576c'] }]
+                labels: ['自動化可能(45%)','半自動化(30%)','人の判断必須(25%)'],
+                datasets: [{ data: [45,30,25], backgroundColor: ['#43e97b','#4facfe','#f5576c'] }]
             },
-            options: { responsive: true, plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'lifull-mcps統合後', font: { size: 12 } } } }
+            options: { responsive: true, plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'lifull-mcps統合後（見込み）', font: { size: 12 } } } }
         });
     </script>
 </body>
