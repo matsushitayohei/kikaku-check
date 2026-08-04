@@ -148,17 +148,19 @@
         </div>
 
         <div class="table-card">
-            <h3>👁️ レビュアー別 指摘傾向</h3>
+            <h3>👁️ レビュアー別 指摘傾向（31期+32期 合算）</h3>
             <table>
                 <thead>
-                    <tr><th>レビュアー</th><th>主な指摘カテゴリ</th><th>特徴</th><th>件数</th></tr>
+                    <tr><th>レビュアー</th><th>主な指摘カテゴリ</th><th>特徴</th><th>合算件数</th><th>活動期</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>齋藤</strong></td><td>データ計測、仕様の具体性、エッジケース</td><td>技術的正確性。具体的なURL例・データ例を添える</td><td>70+</td></tr>
-                    <tr><td><strong>浅利</strong></td><td>ABテスト設計、事業方針、連動漏れ</td><td>全体感を俯瞰。「忘れがちな観点」をチェックリスト的に</td><td>40+</td></tr>
-                    <tr><td><strong>五島</strong></td><td>営業観点、情報審査、Guardrail</td><td>ビジネスリスクの見落とし補完</td><td>20+</td></tr>
-                    <tr><td><strong>原田</strong></td><td>文言・表記・データ引用元</td><td>読みやすさ・記載ルールの統一性</td><td>10+</td></tr>
-                    <tr><td><strong>矢野</strong></td><td>表現の妥当性、営業との整合性</td><td>訴求文言・商品知識の正確性</td><td>10+</td></tr>
+                    <tr><td><strong>齋藤</strong></td><td>データ計測設計、SEO、仕様の具体性、エッジケース</td><td>技術的正確性。具体的なURL例・データ例を添える。指標設計の精度向上</td><td>140+</td><td>31期・32期</td></tr>
+                    <tr><td><strong>浅利</strong></td><td>ABテスト設計、事業方針、施策設計、代替アプローチ</td><td>全体感を俯瞰。過去施策参照を促す。直帰率・再訪率など中間指標の提案</td><td>90+</td><td>31期・32期</td></tr>
+                    <tr><td><strong>相田</strong></td><td>影響範囲確認、指標定義、営業連携、因果関係</td><td>「それOtherで見たい」「営業確認を」が口癖。リンク貼付・記載ルールの徹底</td><td>80+</td><td>31期のみ</td></tr>
+                    <tr><td><strong>五島(Goto)</strong></td><td>営業観点、非居住用、CRM連携、情報審査</td><td>ビジネスリスクの見落とし補完。条件保存・CRM共有の観点</td><td>40+</td><td>31期・32期</td></tr>
+                    <tr><td><strong>原田</strong></td><td>文言・表記・データ引用元</td><td>読みやすさ・記載ルールの統一性</td><td>15+</td><td>31期・32期</td></tr>
+                    <tr><td><strong>矢野</strong></td><td>表現の妥当性、営業との整合性、SEO</td><td>訴求文言・商品知識の正確性</td><td>15+</td><td>31期・32期</td></tr>
+                    <tr><td><strong>松尾</strong></td><td>施策の目的明確化、自身のPJメモ</td><td>企画者側の自己レビュー的なコメントも含む</td><td>10+</td><td>31期・32期</td></tr>
                 </tbody>
             </table>
         </div>
@@ -183,10 +185,13 @@
         new Chart(document.getElementById('reviewerBar'), {
             type: 'bar',
             data: {
-                labels: ['齋藤','浅利','五島','原田','矢野','松下','松尾'],
-                datasets: [{ label: '指摘件数', data: [72,42,22,12,10,8,5], backgroundColor: '#667eea' }]
+                labels: ['齋藤','浅利','相田','五島(Goto)','原田','矢野','松尾','水野','Bao'],
+                datasets: [
+                    { label: '32期', data: [72,42,0,22,12,10,5,0,0], backgroundColor: '#667eea' },
+                    { label: '31期', data: [70,50,80,20,5,5,5,3,6], backgroundColor: '#f093fb' }
+                ]
             },
-            options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: false } } }
+            options: { responsive: true, indexAxis: 'y', plugins: { legend: { display: true } }, scales: { x: { stacked: true }, y: { stacked: true } } }
         });
 
         new Chart(document.getElementById('monthlyTrend'), {
