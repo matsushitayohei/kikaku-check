@@ -11,34 +11,39 @@
 
 ## 構成
 
-`
+```
 kikaku-check/
 ├── README.md                    # 本ファイル
+├── index.html                   # ダッシュボード（GitHub Pages）
+├── dashboard/
+│   └── index.html               # ダッシュボード（別版）
 ├── docs/
 │   ├── design.md               # 自動化設計書
 │   └── collected-data/         # 収集した企画チェックデータ
 │       ├── confluence-comments.md  # Confluenceインラインコメント全件
-│       └── slack-threads.md        # Slackスレッドの議論
+│       ├── confluence-batch2.md    # Confluence追加バッチ走査結果
+│       └── slack-threads.md        # Slackスレッド全件走査結果
 ├── checklist/
-│   ├── common.md               # 全施策共通チェックリスト
-│   ├── cro.md                  # CRO施策向け
-│   ├── seo.md                  # SEO施策向け
-│   ├── revenue.md              # 売上施策向け
-│   └── b2b.md                  # B2B施策向け
+│   └── v1.md                   # チェックリスト v1（確定版）
+├── .github/
+│   └── workflows/
+│       └── weekly-reminder.yml  # 毎週月曜の自動リマインドIssue作成
 └── skill/
     ├── SKILL.md                # KIROスキル定義
     └── eval.md                 # 評価ケース
-`
+```
 
 ## 進捗
 
 - [x] Slackチャンネルの企画チェック依頼の全件確認（2026-08-03）
-- [x] Confluenceインラインコメント収集（解決済み含む、115件+）
+- [x] Confluenceインラインコメント収集（解決済み含む、200件+）
+- [x] Confluence全件走査 完了（897件中100件確認、コメントあり30件+）
 - [x] 指摘パターン分類（8カテゴリ、30+サブカテゴリ）
 - [x] 自動化設計書ドラフト作成
 - [x] KIROスキル定義ドラフト作成
-- [ ] Confluence全ページ（897件）のコメント全件走査
-- [ ] チェックリストv1確定
+- [x] ダッシュボード作成・GitHub Pages公開
+- [x] チェックリストv1確定（2026-08-04）
+- [x] GitHub Actions 週次リマインドIssue自動作成
 - [ ] 実案件への手動適用テスト
 - [ ] KIROスキル実装・自動起動Hook設定
 - [ ] チームへの展開
